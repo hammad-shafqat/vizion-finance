@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaHeart, FaRegHeart, FaMapMarkerAlt } from "react-icons/fa";
 
 interface CarCardProps {
@@ -40,9 +40,37 @@ export default function CarCard({
   financePrice,
 }: CarCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const specRef = useRef<HTMLParagraphElement | null>(null);
+  const detailsRef = useRef<HTMLParagraphElement | null>(null);
+  const [specScrollable, setSpecScrollable] = useState(false);
+  const [detailsScrollable, setDetailsScrollable] = useState(false);
+
+  useEffect(() => {
+    const check = () => {
+      if (specRef.current) {
+        setSpecScrollable(specRef.current.scrollWidth > specRef.current.clientWidth);
+      }
+      if (detailsRef.current) {
+        setDetailsScrollable(detailsRef.current.scrollWidth > detailsRef.current.clientWidth);
+      }
+    };
+
+    // run check after layout (fonts/images) and on resize
+    const runCheck = () => {
+      check();
+      // recheck on next frame to handle late layout
+      requestAnimationFrame(() => check());
+      setTimeout(check, 120);
+    };
+
+    runCheck();
+    window.addEventListener("resize", runCheck);
+    return () => window.removeEventListener("resize", runCheck);
+  }, []);
 
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 overflow-hidden max-w-xl group border border-gray-100">
+    <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 overflow-hidden max-w-xl group border border-gray-100">
       <div className="flex flex-col">
         {/* Car Image */}
         <div className="relative w-full h-52 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
@@ -77,14 +105,14 @@ export default function CarCard({
 
           {/* Specification */}
           <div className="overflow-hidden relative bg-gradient-to-r from-gray-50 to-transparent rounded-lg px-2.5 py-1.5">
-            <p className="text-sm text-gray-600 whitespace-nowrap group-hover:animate-slide">
+            <p ref={specRef} className={`text-sm text-gray-600 whitespace-nowrap ${specScrollable && hovered ? 'animate-slide' : ''}`}>
               {specification}
             </p>
           </div>
 
           {/* Specifications */}
           <div className="overflow-hidden bg-gray-50 rounded-lg px-2.5 py-1.5 relative">
-            <p className="text-xs text-gray-700 whitespace-nowrap group-hover:animate-slide">
+            <p ref={detailsRef} className={`text-xs text-gray-700 whitespace-nowrap ${detailsScrollable && hovered ? 'animate-slide' : ''}`}>
               <span className="font-semibold text-[#04A1FF]">{year}</span>
               <span className="text-gray-400"> • </span>
               <span>{bodyType}</span>
