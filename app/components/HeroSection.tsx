@@ -116,7 +116,7 @@ export default function HeroSection({ onSearch }: HeroSectionProps) {
 
       {/* Filter Bar */}
       <div className="container mx-auto px-4 sm:px-6 md:px-10 lg:px-16 -mt-6 sm:-mt-8 relative z-20">
-        <div className="max-w-5xl mx-auto bg-white rounded-2xl lg:rounded-full shadow-2xl px-4 sm:px-6 md:px-6 lg:px-6 py-4 md:py-5 lg:py-4">
+        <div className="max-w-5xl mx-auto bg-white rounded-2xl lg:rounded-full shadow-2xl px-4 sm:px-6 md:px-6 lg:px-6 py-3 md:py-4 lg:py-3">
           <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap gap-3 md:gap-4 lg:gap-3 items-stretch md:items-center">
             {/* Keyword Input */}
             <div className="flex-1 md:min-w-[180px] lg:min-w-[150px] w-full md:w-auto">
@@ -126,7 +126,7 @@ export default function HeroSection({ onSearch }: HeroSectionProps) {
                   placeholder="Keyword"
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}
-                  className="w-full px-4 py-3 md:py-3 text-sm sm:text-base border border-gray-200 md:border md:border-gray-200 lg:border-none focus:outline-none bg-transparent rounded-lg md:rounded-lg lg:rounded-none focus:ring-2 focus:ring-[#04A1FF] md:focus:ring-2 lg:focus:ring-0"
+                  className="w-full px-4 py-2 md:py-2 text-sm sm:text-base border border-gray-200 md:border md:border-gray-200 lg:border-none focus:outline-none bg-transparent rounded-lg md:rounded-lg lg:rounded-none focus:ring-2 focus:ring-[#04A1FF] md:focus:ring-2 lg:focus:ring-0"
                 />
                 <svg
                   className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -276,7 +276,7 @@ export default function HeroSection({ onSearch }: HeroSectionProps) {
                     maxPrice
                   });
                 }}
-                className="cursor-pointer text-white font-bold px-6 sm:px-8 md:px-10 lg:px-8 py-3 sm:py-4 md:py-4 lg:py-4 text-base sm:text-lg rounded-full transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 w-full md:w-auto"
+                className="cursor-pointer text-white font-bold px-6 sm:px-8 md:px-10 lg:px-8 py-2 sm:py-3 md:py-3 lg:py-3 text-base sm:text-lg rounded-full transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 w-full md:w-auto"
                 style={{ backgroundColor: '#04A1FF' }}
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0390e6'}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#04A1FF'}
